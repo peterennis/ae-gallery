@@ -6,6 +6,7 @@ import {
 
 export function usePhotoGallery() {
   const { Camera } = Plugins;
+  const photos = ref<Photo[]>([]);
 
   const takePhoto = async () => {
     const cameraPhoto = await Camera.getPhoto({
@@ -13,9 +14,17 @@ export function usePhotoGallery() {
       source: CameraSource.Camera,
       quality: 100
     });
+    const fileName = new Date().getTime() + '.jpeg';
+    const savedFileImage = {
+      filepath: fileName,
+      webviewPath: cameraPhoto.webPath
+    };
+
+    photos.value = [savedFileImage, ...photos.value];
   };
 
   return {
+    photos,
     takePhoto
   };
 }
