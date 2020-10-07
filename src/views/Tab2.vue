@@ -32,16 +32,16 @@
 import { camera, trash, close } from "ionicons/icons";
 
 import {
-  // IonCol,
+  IonCol,
   IonContent,
   IonFab,
   IonFabButton,
-  // IonGrid,
+  IonGrid,
   IonHeader,
   IonIcon,
-  // IonImg,
+  IonImg,
   IonPage,
-  // IonRow,
+  IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/vue";
@@ -51,16 +51,16 @@ import { usePhotoGallery, Photo } from "@/composables/usePhotoGallery";
 export default {
   name: "Tab2",
   components: {
-    // IonCol,
+    IonCol,
     IonContent,
     IonFab,
     IonFabButton,
-    // IonGrid,
+    IonGrid,
     IonHeader,
     IonIcon,
-    // IonImg,
+    IonImg,
     IonPage,
-    // IonRow,
+    IonRow,
     IonTitle,
     IonToolbar,
   },
