@@ -17,21 +17,21 @@
 
 <script>
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
 } from "@ionic/vue";
 
 export default {
   name: "Tab1",
   components: {
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
+    IonHeader,
     IonPage,
+    IonTitle,
+    IonToolbar,
   },
 };
 </script>
