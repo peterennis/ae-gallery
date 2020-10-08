@@ -5,8 +5,24 @@ import {
 } from "@capacitor/core";
 
 export function usePhotoGallery() {
-  const { Camera, Filesystem } = Plugins;
+  const { Camera, Filesystem, Storage } = Plugins;
   const photos = ref<Photo[]>([]);
+  const PHOTO_STORAGE = "photos";
+
+  const loadSaved = async () => {
+    const photoList = await Storage.get({ key: PHOTO_STORAGE });
+    const photosInStorage = photoList.value ? JSON.parse(photoList.value) : [];
+
+    for (const photo of photosInStorage) {
+      const file = await Filesystem.readFile({
+        path: photo.filepath,
+        directory: FilesystemDirectory.Data
+      });
+      photo.webviewPath = `data:image/jpeg;base64,${file.data}`;
+    }
+
+    photos.value = photosInStorage;
+  }
 
   const convertBlobToBase64 = (blob: Blob) => new Promise((resolve, reject) => {
     const reader = new FileReader;
@@ -54,6 +70,17 @@ export function usePhotoGallery() {
 
     photos.value = [savedFileImage, ...photos.value];
   };
+
+  const cachePhotos = () => {
+    Storage.set({
+      key: PHOTO_STORAGE,
+      value: JSON.stringify(photos.value)
+    });
+  }
+
+  onMounted(loadSaved);
+
+  watch(photos, cachePhotos);
 
   return {
     photos,
